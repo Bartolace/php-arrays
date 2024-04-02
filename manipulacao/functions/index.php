@@ -1,7 +1,7 @@
 <?php
 
 use function PHPSTORM_META\map;
-
+// Ler uma string em json para um formato conhecido pelo PHP;
 $dadosEmJson = json_decode(
   '[
     {
@@ -40,11 +40,11 @@ $dadosEmJson = json_decode(
   , true);
 
 
-
+//Contar os itens de um array;
 $numeroDePaises = count($dadosEmJson);
 echo "Número de países participantes: $numeroDePaises";
 
-//Fazer com que seus nomes fiquem em letras maiúsculas;
+//Mapear um array para outro com alterações;
 $nomeUpper = array_map(function ($item) {
     $item['pais'] = mb_convert_case($item['pais'], MB_CASE_UPPER);
     return $item;
@@ -52,7 +52,6 @@ $nomeUpper = array_map(function ($item) {
 
 
 //Ordenar: Pelo país que tiver mais medalhas de ouro
-
 usort($dadosEmJson, function ($item1, $item2) {
     $medalhas1 = $item1['medalhas'];
     $medalhas2 = $item2['medalhas'];
@@ -66,6 +65,18 @@ usort($dadosEmJson, function ($item1, $item2) {
 
 var_dump($dadosEmJson);
 
-//Em caso de empate, pelo país que tiver mais medalhas de prata
+//obtendo o valor total de medalhas da competição
+$numeroDeMedalhas = array_reduce($dadosEmJson, function ($medalhasAcumuladas, $itemAtual) {
+    $medalhasDoPais = array_reduce($itemAtual['medalhas'], function ($medalhasAcumuladasDoPaisAtual, $medalhasDoPaisAtual) {
+        return $medalhasAcumuladasDoPaisAtual + $medalhasDoPaisAtual;
+    }, 0);
 
-//Em caso de empate, pelo país que tiver mais medalhas de bronze
+    return $medalhasAcumuladas + $medalhasDoPais . PHP_EOL;
+}, 0);
+echo "Total de medalhas entregues: $numeroDeMedalhas";
+
+
+$paisesComNomeSemEspaco = array_filter($dadosEmJson, function ($item) {
+    return strpos($item['pais'], ' ') === false;
+});
+var_dump($paisesComNomeSemEspaco);
