@@ -17,6 +17,7 @@ $toLower = mb_strtolower($extraiStrAntes);
 
 
 $tamanhoStrBit = mb_strlen($mail);
+$explodeSample = explode(' ', $nome); 
 
 
-var_dump($tamanhoStrBit);
+var_dump($explodeSample);
