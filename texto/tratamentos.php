@@ -18,5 +18,6 @@ $texto = "Texto com qualquer palavrão caramba";
 $substituiPalavras = str_replace(['palavrão', 'caramba'],"***", $texto);
 
 $substituiCaracteres = strtr($texto, 'a','*');
+//subscreve o valor
 $substituiPalavras2 = strtr($texto, ["palavrão" => "educação"]);
 echo $substituiPalavras2;
