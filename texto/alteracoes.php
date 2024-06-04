@@ -12,4 +12,3 @@
     $apararRigth = rtrim($email, ".");
 
     print_r($apararLeft);  
-?>
